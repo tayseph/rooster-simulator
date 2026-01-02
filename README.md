@@ -6,11 +6,12 @@ An organic simulation of rooster movements and calls, designed to play through a
 
 - Real-time simulation of multiple roosters moving in a radial area
 - Spatial audio positioning with 5.1 surround sound support
+- **Real-time visualization** - see rooster positions and movements on screen
 - **Time-of-day based calling behavior** - roosters crow more at dawn, less at night
 - Accelerated time simulation to experience full day/night cycles
 - Roosters respond to nearby roosters calling
 - Configurable movement patterns and calling behavior
-- Individual rooster personalities with "sticky" call preferences
+- Individual rooster personalities with "sticky" call preferences and curiosity traits
 - Distance-based volume attenuation
 - Highly parameterized via YAML configuration
 
@@ -45,6 +46,19 @@ Run the simulator with default configuration:
 ```bash
 python main.py
 ```
+
+### With Visualization
+
+Run with real-time visual display of rooster positions:
+```bash
+python main.py --visualize
+```
+
+This opens a matplotlib window showing:
+- Rooster positions in real-time
+- Movement tracking
+- Calling indicators (red = calling, blue = idle)
+- Quadrant layout matching your speaker configuration
 
 ### Custom Configuration
 
