@@ -1,0 +1,85 @@
+# Hawaiian Roaming Rooster Simulator Configuration
+
+# Number of roosters in the simulation
+num_roosters: 10
+
+# Time parameters for state reevaluation
+time_unit: 10.0  # Base time in seconds to reevaluate rooster states
+time_randomization: 0.3  # Randomization factor (0.0 - 1.0) to make timing less predictable
+
+# Simulation time settings
+simulation_time:
+  start_time: "06:00"  # Starting time of day for simulation (HH:MM format in 24hr)
+  time_scale: 60.0  # Time acceleration factor (60.0 = 1 real minute = 1 simulated hour)
+
+# Movement parameters
+movement:
+  frequency: 0.15  # Probability of movement per time unit (0.0 - 1.0)
+  chance_to_move: 0.7  # Base chance that a rooster will move at all (0.0 - 1.0)
+  distance_min: 2.0  # Minimum movement distance in meters
+  distance_max: 10.0  # Maximum movement distance in meters
+
+  # Curiosity/Roaming personality trait
+  curiosity:
+    min: 0.5  # Minimum curiosity value (0.0 = sedentary, 1.0 = very active)
+    max: 1.5  # Maximum curiosity value (multiplies with chance_to_move)
+    # Each rooster gets a random curiosity between min and max
+    # Higher curiosity = more likely to move around
+    # Lower curiosity = prefers staying in one area
+
+# Calling parameters
+calling:
+  frequency: 0.2  # Base probability of calling per time unit (0.0 - 1.0)
+
+  # Proximity response - roosters responding to nearby calls
+  proximity_response:
+    reply_likelihood: 0.6  # Chance to reply to a nearby rooster (0.0 - 1.0)
+    trigger_distance: 30.0  # Distance in meters where response is triggered
+    randomization: 0.4  # Randomization factor for reply behavior (0.0 - 1.0)
+
+  # Time-of-day based calling frequency
+  # Roosters crow 24/7, but likelihood varies by time of day
+  time_of_day:
+    enabled: true  # Enable time-of-day based calling frequency
+
+    # Dawn settings - peak crowing time
+    dawn_time: "06:00"  # Time of dawn (HH:MM format in 24hr)
+    dawn_duration: 1.0  # Hours around dawn with peak activity
+    dawn_multiplier: 5.0  # Multiplier for calling frequency at dawn (100% = always crow)
+
+    # Daylight hours (after dawn until dusk)
+    daylight_start: "07:00"  # When daylight period begins
+    daylight_end: "18:00"  # When daylight period ends
+    daylight_multiplier: 1.5  # Multiplier for calling frequency during day
+
+    # Nighttime hours
+    nighttime_multiplier: 0.3  # Multiplier for calling frequency at night (but they still crow!)
+
+# Area of operations (radial area with listener at center)
+area:
+  max_radius: 500.0  # Distance to furthest point from origin in meters
+  distance_steps: 20  # Number of discrete distance levels from origin to edge
+
+# Call audio settings
+calls:
+  default_call: "rooster_call_1.wav"  # Default rooster call file
+  variation_probability: 0.3  # Chance to use a different call (0.0 - 1.0)
+
+  # Call "stickiness" - some roosters prefer specific calls
+  stickiness:
+    percentage_sticky_roosters: 0.4  # Percentage of roosters with stickiness (0.0 - 1.0)
+    alternate_call_chance: 0.7  # Chance they pick non-default call (0.0 - 1.0)
+    revert_to_default_chance: 0.1  # Chance they return to default (0.0 - 1.0)
+    randomization: 0.25  # Randomization factor for stickiness (0.0 - 1.0)
+
+# Audio output settings
+audio:
+  sample_rate: 44100
+  channels: 6  # 5.1 surround: FL, FR, C, LFE, RL, RR
+
+  # Volume attenuation based on distance
+  volume:
+    min_distance: 5.0  # Distance at which volume is maximum
+    max_distance: 100.0  # Distance at which volume reaches minimum
+    min_volume: 0.05  # Minimum volume level (0.0 - 1.0)
+    max_volume: 1.0  # Maximum volume level (0.0 - 1.0)
